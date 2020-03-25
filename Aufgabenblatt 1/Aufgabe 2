@@ -1,0 +1,10 @@
+Antwort zu Aufgabe 2:
+Das worst case wäre, dass alle n Seiten Outlinks auf alle anderen Seiten besitzen.
+Dann müsste unser Algorithmus alle n Seiten durchgehen und dort wiederrum n Seiten der map hinzufügen.
+O(n²)
+
+Das best case wäre, dass alle n Seiten keine Outlinks haben.
+Dann würde unser Algorithmus nur einmal alle n Seiten durchgehen und wäre dann fertig.
+O(n)
+
+Die Zugriffszeit für die Datenstruktur, in der die Inlinks gezählt werden ist im Durchschnitt O(1).
