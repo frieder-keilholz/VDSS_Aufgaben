@@ -6,8 +6,6 @@
 // Die Laufzeit der unordered_map ist mit O(1) besser
 //  als die der (stabilen) map mit O(log(n))
 
-// Als 
-
 #include <iostream>
 #include <fstream>
 #include <vector>
