@@ -110,9 +110,9 @@ def use_rndm_date():
     random_day = date.fromordinal(random.randint(start_dt, end_dt))
     return random_day
 
-def create_a_1001_ToDos():
+def create_many_ToDos(quantity):
     i = 0
-    while i < 1001:
+    while i <= quantity:
         i += 1
         name = "user" + str(i)
         mission = "ToDo" + str(i)
@@ -122,10 +122,10 @@ def create_a_1001_ToDos():
         insertToDo(mission, today, name, ip, deadline)
 
 if __name__ == '__main__':
-    welcome()
+    #welcome()
     redisDB = redis.Redis(host=host, port=port, db=0, password = password, charset="utf-8", decode_responses=True)
-    get_user_input(1,5)
-    #create_a_1001_ToDos()
-    #getToDos()
+    #get_user_input(1,5)
+    create_many_ToDos(1001)
+    getToDos()
 
 
