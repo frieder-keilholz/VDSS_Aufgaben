@@ -34,16 +34,16 @@ Mit Schritt 7 soll simuliert werden, dass mit dem System gearbeitet wird.
 Aufgaben
 --------
 
-Bearbeiten Sie die folgenden Aufgaben: 
+Bearbeiten Sie die folgenden Aufgaben:
 
-* Fragen Sie regelmäßig Daten sowie Informationen über den Cluster bzw. die einzelnen Knoten ab. Auch dies kann skript-gesteuert erfolgen. 
+* Fragen Sie regelmäßig Daten sowie Informationen über den Cluster bzw. die einzelnen Knoten ab. Auch dies kann skript-gesteuert erfolgen.
 * Richten Sie eine geeignete Monitoring-Lösung ein, um insbes. die Verteilung der Daten im Cluster überwachen zu können.
 * Untersuchen Sie, ob und wann die erfassten/geänderten Daten auf anderen Knoten verfügbar sind.
 * Experimentieren Sie mit unterschiedlichen Replikationsfaktoren. Welche Effekte können Sie beobachten?
 * Untersuchen Sie, wie sich der Cluster beim Ausfall/Hinzufügen von Knoten verhält. Welche Effekte können Sie beobachten?
 
 * (optional) Übertragen Sie die komplette Datenbank eines Knotens auf andere Knoten (Backup & Restore), bevor diese in den Cluster aufgenommen werden.
-* (optional) Experimentieren Sie, wie viele Knoten auf Ihrer Hardware laufen. Je nach verfügbarer Hardware können Sie die Knoten lokal, mittels Docker, VM oder auf mehreren physischen Geräten betreiben. 
+* (optional) Experimentieren Sie, wie viele Knoten auf Ihrer Hardware laufen. Je nach verfügbarer Hardware können Sie die Knoten lokal, mittels Docker, VM oder auf mehreren physischen Geräten betreiben.
 
 Sämtliche Arbeitsschritte und -ergebnisse sind zu dokumentieren.
 
@@ -73,4 +73,3 @@ Die Lösung der Aufgabe wird bewertet. Laden Sie Ihre Lösungen (Skripte, Code, 
 
 ---
 Letzte Änderung: 09.04.2020
-
