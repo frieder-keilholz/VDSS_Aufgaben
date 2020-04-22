@@ -1,13 +1,16 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """
-To-Do program following the file of Christopher Grätz
+To-Do program following the file of Christopher Graetz
 """
 
 __author__ = "Julia Reinke"
 __date__ = "2020-04-20"
 
 import redis
-import redisDB
 import sys
+from datetime import date
 import datetime
 import socket
 import random
@@ -18,16 +21,16 @@ password = ""
 
 def welcome():
     print("Hallo! Willkommen bei Ihrer ToDo-Liste!\n")
-    print(" 1 Aufgabe hinzufügen\n"
+    print(" 1 Aufgabe hinzufuegen\n"
           " 2 Aufgabe entfernen\n"
           " 3 To-Do-Liste ansehen\n"
-          " 4 To-Do-Liste löschen\n"
+          " 4 To-Do-Liste loeschen\n"
           " 5 Beenden\n")
 
-def get_user_input():
+def get_user_input(first, last):
     while True:
         try:
-            user_input = int(input("Geben Sie bitte eine der oben genannten Zahlen ein um zu starten."))
+            user_input = int(input("Geben Sie bitte eine der oben genannten Zahlen ein um zu starten.\n"))
             if user_input == 1:
                 mission = input("Aufgabe hinzufügen: ")
                 today = date.today()
@@ -35,8 +38,10 @@ def get_user_input():
                 name = input("Nutzername: ")
                 deadline = input("Deadline: ")
                 #now added IP of user to ToDo
-                ip = socket.gethostbyname(socket.gethostname())
-                insertToDo(mission, today, deadline, name, ip)
+                print("Now adding IP")
+                ip = str(socket.gethostbyname(socket.gethostname()))
+                print("Inserting to DB")
+                insertToDo(mission, today, name, ip, deadline)
             if user_input == 2:
                 print("Aufgabe entfernen")
                 mission = input("Mission: ")
@@ -55,11 +60,13 @@ def get_user_input():
         except KeyboardInterrupt:
             break
         if user_input is not None and not first <= user_input <= last:
-            print("Bitte geben Sie eine Zahl zwischen 1 und 4 ein!")
+            print("Bitte geben Sie eine Zahl zwischen 1 und 5 ein!")
 
-def insertToDo(mission, today, deadline, name, ip):
+def insertToDo(mission, today, name, ip, deadline):
     try:
-        redisDB.hset(mission, " erstellt am " + str(today), + " von Name: " + name + " IP: " + ip + " erledigt bis " + str(deadline))
+        todaystr = today.strftime('%d/%m/%y')
+        deadlinestr = deadline.strftime('%d/%m/%y')
+        redisDB.rpush(mission, todaystr, name, ip, deadlinestr)
     except Exception as e:
         print(e)
 
@@ -79,7 +86,10 @@ def getToDos():
     keys = redisDB.keys()
     for key in keys:
         print("ToDo: " + str(key))
-        print(redisDB.hgetall(key))
+        i = 0
+        while i < 4:
+            print(redisDB.lindex(key, i))
+            i += 1
         print()
 
 def deleteAll():
@@ -96,21 +106,26 @@ def use_rndm_date():
     used with a small change
     """
     start_dt = date.today().toordinal()
-    end_dt = date.today().toordinal()
+    end_dt = date.today().replace(day=31, month=12).toordinal()
     random_day = date.fromordinal(random.randint(start_dt, end_dt))
+    return random_day
 
 def create_a_1001_ToDos():
     i = 0
-    for toDo in a_thousand_todos(1001):
+    while i < 1001:
         i += 1
-        name = str("user" + i)
-        mission = str("ToDo" + i)
-        deadline = use_rndm_date()
-        today = date.today()
+        name = "user" + str(i)
+        mission = "ToDo" + str(i)
+        deadline = datetime.datetime(2020,12,31)
         ip = socket.gethostbyname(socket.gethostname())
-        insertToDo(mission, today, deadline, name, ip)
+        today = datetime.datetime.now()
+        insertToDo(mission, today, name, ip, deadline)
 
 if __name__ == '__main__':
     welcome()
     redisDB = redis.Redis(host=host, port=port, db=0, password = password, charset="utf-8", decode_responses=True)
-    get_user_input()
+    get_user_input(1,5)
+    #create_a_1001_ToDos()
+    #getToDos()
+
+
