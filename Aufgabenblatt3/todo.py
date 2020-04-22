@@ -18,6 +18,7 @@ import random
 host = "192.168.2.168"
 port = 6379
 password = ""
+i = 0
 
 def welcome():
     print("Hallo! Willkommen bei Ihrer ToDo-Liste!\n")
@@ -110,8 +111,7 @@ def use_rndm_date():
     random_day = date.fromordinal(random.randint(start_dt, end_dt))
     return random_day
 
-def create_many_ToDos(quantity):
-    i = 0
+def create_many_ToDos(quantity):    
     while i <= quantity:
         i += 1
         name = "user" + str(i)
