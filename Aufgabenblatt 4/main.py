@@ -1,7 +1,7 @@
 __author__      = "Frieder Keilholz"
 __version__     = "1"
 __email__       = "frieder.keilholz@th-wildau.de"
-__status        =  "Prototype"
+__status        = "Prototype"
 
 # # # # # # # # # # # # # # # # #
 # Faker Package vorrausgesetzt  #
@@ -72,5 +72,7 @@ def saveJSONs(entries):
         file.write(json.dumps(entry,default=str,indent=4))
         file.close()
 
-
-saveJSONs(buildEntries(1000))
+print("Generate random ToDo entries...")
+entries = buildEntries(10000)
+print("Save generated ToDos to JSON-files...")
+saveJSONs(entries)
