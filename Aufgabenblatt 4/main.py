@@ -21,7 +21,7 @@ fake = Faker()
 def buildEntries(numOfeEtries):
     entries = []
     initSeed = int(random.randint(1,9999999))
-    for _ in range(numOfeEtries-1):
+    for _ in range(numOfeEtries):
         entry = {}
 
         # generate unique random ID
@@ -66,7 +66,7 @@ def saveJSONs(entries):
         file.write(json.dumps(entry,default=str,indent=4))
         file.close()
 
-print("Generate random ToDo entries...")
+print("Generate 10000 random ToDo entries...")
 entries = buildEntries(10000)
 print("Save generated ToDos to JSON-files...")
 saveJSONs(entries)
