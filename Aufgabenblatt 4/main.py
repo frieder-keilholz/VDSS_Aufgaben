@@ -1,5 +1,4 @@
 __author__      = "Frieder Keilholz"
-__version__     = "1"
 __email__       = "frieder.keilholz@th-wildau.de"
 __status        = "Prototype"
 
