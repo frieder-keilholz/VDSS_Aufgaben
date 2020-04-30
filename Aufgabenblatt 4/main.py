@@ -25,7 +25,7 @@ def buildEntries(numOfeEtries):
 
         # generate random user
         user = fake.name()
-        
+
         for _ in range(random.randint(1,10)):
             entry = {}
 
@@ -51,7 +51,9 @@ def buildEntries(numOfeEtries):
             entry["user"] = user
             #print(entry["user"])
 
+            # set nodes
             entry["nodes"] = ["node-1", "node-3", "node-5"]
+            
             entriesPerUser.append(entry)
         entries.append(entriesPerUser)
      
