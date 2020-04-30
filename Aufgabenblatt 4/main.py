@@ -46,16 +46,11 @@ def buildEntries(numOfeEtries):
         entry["user"] = fake.name()
         #print(entry["user"])
 
+        entry["nodes"] = ["node-1", "node-3", "node-5"]
+
         entries.append(entry)
 
      
-    #print(random.getrandbits(8))
-    #seed = random.getrandbits(8)
-    #for _ in range(4):
-    #    yield seed
-    #    seed += 1
-    #    print(next())
-    #entry["nodes"] = 
     return entries
 
 def saveJSONs(entries):
