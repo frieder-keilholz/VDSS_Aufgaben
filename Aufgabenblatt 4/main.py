@@ -17,7 +17,6 @@ import os
 import errno
 
 fake = Faker()
-nodes = [""]
 
 def buildEntries(numOfeEtries):
     entries = []
@@ -49,7 +48,7 @@ def buildEntries(numOfeEtries):
 
         entries.append(entry)
 
-    
+     
     #print(random.getrandbits(8))
     #seed = random.getrandbits(8)
     #for _ in range(4):
