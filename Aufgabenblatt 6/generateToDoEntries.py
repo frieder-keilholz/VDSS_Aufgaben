@@ -75,7 +75,7 @@ def saveJSONs(entries):
 
 print("Generate 1000 random ToDo-User entries...")
 now = datetime.datetime.now()
-entries = buildEntries(10000)
+entries = buildEntries(100000)
 print("Save generated ToDos to JSON-files...")
 print(datetime.datetime.now() - now)
 saveJSONs(entries)
@@ -85,4 +85,10 @@ Timetesting on 9700k @5.1ghz
 times
 100k: 0:08:04.977089
 10k:  0:00:48.714555
+"""
+""" 
+Timetesting on 3600X @UbuntuVM
+times
+100k: 0:05:07.994340
+10k:  0:00:30.694395
 """
