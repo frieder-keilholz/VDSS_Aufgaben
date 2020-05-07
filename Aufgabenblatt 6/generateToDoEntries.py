@@ -21,6 +21,7 @@ fake = Faker()
 def buildEntries(numOfeEtries):
     entries = []
     initSeed = int(random.randint(1,9999999))
+    #genID = 1
     for _ in range(numOfeEtries):
         entriesPerUser = []
 
@@ -34,6 +35,8 @@ def buildEntries(numOfeEtries):
             random.seed(initSeed)
             initSeed+=1
             entry["_id"] = str(hex(random.getrandbits(96))).split('0x')[1]
+            #entry["_id"] = str(hex(genID))
+            #genID+=1
             #print(entry["_id"])
 
             # generate random todo
@@ -75,7 +78,7 @@ def saveJSONs(entries):
 
 print("Generate 1000 random ToDo-User entries...")
 now = datetime.datetime.now()
-entries = buildEntries(100000)
+entries = buildEntries(10000)
 print("Save generated ToDos to JSON-files...")
 print(datetime.datetime.now() - now)
 saveJSONs(entries)
