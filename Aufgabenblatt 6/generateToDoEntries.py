@@ -83,8 +83,8 @@ saveJSONs(entries)
 """ 
 Timetesting on 9700k @5.1ghz
 times
-100k: 0:08:04.977089
-10k:  0:00:48.714555
+100k: 0:05:02.440824
+10k:  0:00:30.522318
 """
 """ 
 Timetesting on 3600X @UbuntuVM
