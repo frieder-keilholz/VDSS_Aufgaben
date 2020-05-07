@@ -1,49 +1,52 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 """
-Simple TO_DO_List with redis
-Create Tasks with timestamp and to be done date, show tasks (unordered), delete tasks, flush task list
+To-Do program following the file of Christopher Graetz
 """
-__author__ = "Christopher Grätz"
-__date__ = "2020-04-07"
+
+__author__ = "Julia Reinke"
+__date__ = "2020-04-20"
 
 import redis
 import sys
 from datetime import date
+import datetime
+import socket
+import random
 
-host = "graetznas.myds.me"
-port = 6377
+host = "192.168.2.168"
+port = 6379
 password = ""
+i = 0
 
+def welcome():
+    print("Hallo! Willkommen bei Ihrer ToDo-Liste!\n")
+    print(" 1 Aufgabe hinzufuegen\n"
+          " 2 Aufgabe entfernen\n"
+          " 3 To-Do-Liste ansehen\n"
+          " 4 To-Do-Liste loeschen\n"
+          " 5 Beenden\n")
 
-def print_header():
-    print("\033[32m###########################################")
-    print("#                 \033[3;32mToDo-Liste              #")
-    print("###########################################")
-    print("           1 Aufgabe hinzufügen\n"
-          "           2 Aufgabe entfernen\n"
-          "           3 To-Do-Liste ansehen\n"
-          "           4 To-Do-Liste löschen\n"
-          "           5 Exit")
-    print("##########################################\033[0;30m")
-
-
-def get_selection(smallest, biggest):
-    """
-    get the user input from console
-    :param smallest: first menu item
-    :param biggest: last menu item
-    """
+def get_user_input(first, last):
     while True:
         try:
-            user_input = int(input('\n\033[1;31mWas wollen sie tun?\033[0;30m\n'))
+            user_input = int(input("Geben Sie bitte eine der oben genannten Zahlen ein um zu starten.\n"))
             if user_input == 1:
-                task = input("Aufgabe hinzufügen: ")
+                mission = input("Aufgabe hinzufügen: ")
                 today = date.today()
-                time = input("Bis wann: ")
-                insertToDo(task, today, time)
+                #now added name to ToDo
+                name = input("Nutzername: ")
+                deadline = input("Deadline: ")
+                #now added IP of user to ToDo
+                print("Now adding IP")
+                ip = str(socket.gethostbyname(socket.gethostname()))
+                print("Inserting to DB")
+                insertToDo(mission, today, name, ip, deadline)
             if user_input == 2:
                 print("Aufgabe entfernen")
-                task = input("Task: ")
-                deleteTask(task)
+                mission = input("Mission: ")
+                deleteMission(mission)
             if user_input == 3:
                 print("ToDo-Liste ansehen")
                 getToDos()
@@ -51,50 +54,78 @@ def get_selection(smallest, biggest):
                 print("ToDo-Liste löschen")
                 deleteAll()
             if user_input == 5:
-                print("Tschüss")
+                print("Programm wird beendet...")
                 sys.exit()
         except ValueError:
             pass
         except KeyboardInterrupt:
             break
-        if user_input is not None and not smallest <= user_input <= biggest:
-            print('Bitte geben Sie eine Zahl '
-                  'zwischen {0} und {1} ein!'.format(smallest, biggest))
+        if user_input is not None and not first <= user_input <= last:
+            print("Bitte geben Sie eine Zahl zwischen 1 und 5 ein!")
 
-
-def insertToDo(task, today, time):
-    redisDB.hset(task, "created: " + str(today), "to be done by: " + str(time))
-    # redisDB.set(task, str(today), str(time))
-
-
-def deleteTask(task):
+def insertToDo(mission, today, name, ip, deadline):
     try:
-        if redisDB.exists(task):
-            redisDB.delete(task)
+        todaystr = today.strftime('%d/%m/%y')
+        deadlinestr = deadline.strftime('%d/%m/%y')
+        redisDB.rpush(mission, todaystr, name, ip, deadlinestr)
+    except Exception as e:
+        print(e)
+
+
+def deleteMission(mission):
+    try:
+        if redisDB.exists(mission):
+            redisDB.delete(mission)
         else:
-            print("No such entry")
+            print("Dieser Eintrag existiert nicht")
     except:
-        print("Not possible - no such entry")
+        print("Nicht möglich, da dieser Eintrag nicht existiert.")
 
 
 def getToDos():
     print('DB-Size: ' + str(redisDB.dbsize()))
-    # print('{:^52} | {:<30}'.format('to', 'Task'))
-    # print('{:-<53}|{:-<31}'.format('', ''))
     keys = redisDB.keys()
     for key in keys:
-        print("Task: " + str(key))
-        # print('{:^10} | {:<30}'.format(str(redisDB.hgetall(key)), key))
-        print(redisDB.hgetall(key))
+        print("ToDo: " + str(key))
+        i = 0
+        while i < 4:
+            print(redisDB.lindex(key, i))
+            i += 1
         print()
-
 
 def deleteAll():
     redisDB.flushall()
     getToDos()
 
+###############################Task Sheet 3###############################
+
+def use_rndm_date():
+    """
+    Method to create a random date between today and the last day of the year from:
+    https://www.w3resource.com/python-exercises/math/python-math-exercise-74.php
+
+    used with a small change
+    """
+    start_dt = date.today().toordinal()
+    end_dt = date.today().replace(day=31, month=12).toordinal()
+    random_day = date.fromordinal(random.randint(start_dt, end_dt))
+    return random_day
+
+def create_many_ToDos(quantity):    
+    while i <= quantity:
+        i += 1
+        name = "user" + str(i)
+        mission = "ToDo" + str(i)
+        deadline = datetime.datetime(2020,12,31)
+        ip = socket.gethostbyname(socket.gethostname())
+        today = datetime.datetime.now()
+        insertToDo(mission, today, name, ip, deadline)
 
 if __name__ == '__main__':
-    print_header()
-    redisDB = redis.Redis(host=host, port=port, db=0, password=password, charset="utf-8", decode_responses=True)
-    get_selection(1, 4)
+    #welcome()
+    redisDB = redis.Redis(host=host, port=port, db=0, password = password, charset="utf-8", decode_responses=True)
+    #get_user_input(1,5)
+    create_many_ToDos(1001)
+    getToDos()
+
+
