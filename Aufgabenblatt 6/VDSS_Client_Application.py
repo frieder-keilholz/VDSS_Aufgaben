@@ -16,11 +16,10 @@ from pymongo import MongoClient
 
 
 def ui_main ():
-	client = MongoClient('localhost', 27017)
-	ui_clearer()
-	print("Hello this is our VDSS client programm user interface \n\n")
-	while  ui_main_menu_switcher(ui_input_prompt()):
-		print ("Input Wörkt")
+    ui_clearer()
+    print("Hello this is our VDSS client programm user interface \n\n")
+    while  ui_main_menu_switcher(ui_input_prompt()):
+        print ("Input Wörkt")
 
 
 
@@ -98,5 +97,16 @@ def ui_worng_input():
 def ui_clearer():
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
+#def connection_reader():
+
+
 print("VDSS clinet programm starting:")
+myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
+mydb = myclient["mydatabase"]
+mycol = mydb["customers"]
+
+mydict = { "name": "John", "address": "Highway 37" }
+
+x = mycol.insert_one(mydict)
+print (myclient)
 ui_main()

@@ -1,0 +1,10 @@
+3
+192.168.2.170:8001,
+192.168.2.170:8002,
+192.168.2.170:8003
+rs1
+
+# Number of Replicas
+# IP of the replicas followed by a comma ','
+# IP of the last replica folowed bei nothing
+# name of the Replica
