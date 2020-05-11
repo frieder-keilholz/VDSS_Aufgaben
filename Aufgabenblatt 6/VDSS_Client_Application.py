@@ -12,14 +12,16 @@ ToDo List fot the client program
 
 """
 import pymongo
+from pymongo import MongoClient
+
 
 def ui_main ():
-    ui_clearer()
-    print("Hello this is our VDSS client programm user interface \n\n")
-    while  ui_main_menu_switcher(ui_input_prompt()):
-        print ("Input Wörkt")
-        
-   
+	client = MongoClient('localhost', 27017)
+	ui_clearer()
+	print("Hello this is our VDSS client programm user interface \n\n")
+	while  ui_main_menu_switcher(ui_input_prompt()):
+		print ("Input Wörkt")
+
 
 
 #prints the ui Input promt
