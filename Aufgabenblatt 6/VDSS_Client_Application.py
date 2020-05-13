@@ -110,6 +110,8 @@ def ui_wrong_input():
 #clears the console
 def ui_clearer():
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+
+
 #usergenerated todo
 def create_todo():
     print('cratingtodo')
@@ -120,8 +122,8 @@ def create_todo():
 
     if(ui_yes_nos_switcher(input('do you want to add a discription?'))):
         print ('nicer dicer')
-    return true
 
+    return True
 def benchmark_mode():
     print('benchmarkmode')
 
