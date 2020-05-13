@@ -128,8 +128,10 @@ def create_todo():
 def benchmark_mode():
     
     print('BENCHMARK MODE ENABLED!!!!\n\n')
-    
-    ToDoGen.generateToDo(int(input('Please enter how many todos you want to generate: ')))
+    i=int(input('Please enter how many todos you want to generate: '))
+    while(i>0):
+        mycol.insert_one(ToDoGen.generateToDo())
+        i-=1
     return True
 
 
