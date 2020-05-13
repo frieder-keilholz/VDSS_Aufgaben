@@ -130,6 +130,7 @@ def benchmark_mode():
     print('BENCHMARK MODE ENABLED!!!!\n\n')
     
     ToDoGen.generateToDo(int(input('Please enter how many todos you want to generate: ')))
+    return True
 
 
 #def connection_reader():
