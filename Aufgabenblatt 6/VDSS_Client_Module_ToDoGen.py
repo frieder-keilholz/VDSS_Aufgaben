@@ -10,6 +10,14 @@ languages = ["Python", "C", "C++", "C#", "Java", "JavaScript", "Perl", "Go", "AB
 # by user input
 def createToDo(dict):
     print("Create ToDo-JSON-Document by user-given values")
+    entry = {}
+    entry["todo"] = dict["todo"]
+    entry["text"] = dict["text"]
+    entry["until"] = datetime.datetime(dict["until"])
+    entry["todo"] = dict["todo"]
+    jsonDoc = json.dumps(entry, default=str,indent=4)
+    print(jsonDoc)
+    return jsonDoc
 
 # generate random ToDo
 def generateToDo():
