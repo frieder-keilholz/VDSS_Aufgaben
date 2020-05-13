@@ -41,10 +41,10 @@ def ui_main_menu_switcher(argument):
 def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by its '_id':")
-    search_id = input("_id:")
-    print (mydb.find())
+    searched_id = input("_id:")
+    print (mycol.find({"_id": searched_id}))
     # TODO The if statement should only be called if the search was positive
-    if(search_id):
+    if(searched_id):
         if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
             search_edit()
             return True
