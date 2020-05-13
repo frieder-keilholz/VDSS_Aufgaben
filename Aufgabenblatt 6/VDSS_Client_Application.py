@@ -116,17 +116,21 @@ def ui_clearer():
 def create_todo():
     print('cratingtodo')
     ToDoGen.createToDo({"ToDo":"ToDoTitel"})
-    ToDoGen.generateToDo()
+    
     new_todo={}
     todo_name = input('Please give your ToDo a name: ')
 
     if(ui_yes_nos_switcher(input('do you want to add a discription?'))):
-        print ('nicer dicer')
-
+        discription = input("Please enter the discription: ")
+    untildate = input('Please enter the end date (yyyy-mm-dd hh:mm:ss) for the todo: ') #CONVERT INPUT TO DATE
     return True
     
 def benchmark_mode():
-    print('benchmarkmode')
+    
+    print('BENCHMARK MODE ENABLED!!!!\n\n')
+    
+    ToDoGen.generateToDo(int(input('Please enter how many todos you want to generate: ')))
+
 
 #def connection_reader():
 
