@@ -14,6 +14,8 @@ ToDo List fot the client program
 import pymongo
 from pymongo import MongoClient
 
+import VDSS_Client_Module_ToDoGen as ToDoGen
+
 #is the main method for the ui
 def ui_main ():
     ui_clearer()
@@ -108,19 +110,18 @@ def ui_wrong_input():
 #clears the console
 def ui_clearer():
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-
-
 #usergenerated todo
 def create_todo():
     print('cratingtodo')
-    
+    ToDoGen.createToDo({"ToDo":"ToDoTitel"})
+    ToDoGen.generateToDo()
     new_todo={}
     todo_name = input('Please give your ToDo a name: ')
 
     if(ui_yes_nos_switcher(input('do you want to add a discription?'))):
         print ('nicer dicer')
+    return true
 
-    return True
 def benchmark_mode():
     print('benchmarkmode')
 
