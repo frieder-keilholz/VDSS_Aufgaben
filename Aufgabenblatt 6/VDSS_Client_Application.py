@@ -42,7 +42,10 @@ def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by its '_id':")
     searched_id = input("_id:")
-    print (mycol.find({"_id": searched_id}))
+    result = mycol.find({"_id": searched_id})
+    print(result)
+    print(mycol.find_one())
+    # print (mycol.find({"_id": searched_id}))
     # TODO The if statement should only be called if the search was positive
     if(searched_id):
         if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
@@ -108,9 +111,10 @@ def ui_clearer():
 
 
 print("VDSS clinet programm starting:")
-myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
+#myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
+myclient = MongoClient("mongodb://192.168.2.162:10000/")
 mydb = myclient["test"]
-mycol = mydb["todo"] 
+mycol = mydb["test"] # should be todo
 
 #mydict = { "name": "John", "address": "Highway 37" }
 
