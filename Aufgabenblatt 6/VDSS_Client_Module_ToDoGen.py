@@ -16,6 +16,7 @@ def generateToDo():
     entry["todo"] = fake.sentence()
     entry["text"] = fake.text()
     entry["until"] = fake.future_datetime(end_date='+10y')
-    entry["user"] = user
+    for _ in range(random.randint(1,5)):
+        entry["user"] = fake.name()
     return json.dumps(entry,default=str,indent=4)
     
