@@ -23,7 +23,7 @@ def ui_main ():
 
 #prints the ui Input promt
 def ui_input_prompt():
-    print("You have the following optins: \nInput: '1' to search for a todo by 'id'\nInput: '2' to search by multiple things\nInput 'Exit' to leave")
+    print("You have the following optins: \nInput: '1' to search for a todo by 'id'\nInput: '2' to search by multiple things\nInput: '3' to create a todo manualy \nInput: '4' to sart benchmarkmode \nInput: 'Exit' to leave")
     first_usr_input = input("\n What do you want to do: \t")
     return first_usr_input
 
@@ -32,9 +32,11 @@ def ui_main_menu_switcher(argument):
     switcher = {
         '1': search_simple,
         '2': search_complex,
+        '3': create_todo,
+        '4': benchmark_mode,
         'Exit': ui_exit
     }
-    func = switcher.get(argument, lambda: ui_worng_input() )
+    func = switcher.get(argument, lambda: ui_wrong_input() )
     return func()
 
 #searches after an _id
@@ -47,7 +49,7 @@ def search_simple():
     print(mycol.find_one())
     # print (mycol.find({"_id": searched_id}))
     # TODO The if statement should only be called if the search was positive
-    if(searched_id):
+    if(result):
         if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
             search_edit()
             return True
@@ -89,7 +91,7 @@ def ui_yes_no_switcher(argument):
         'Nein': False,
         'nein': False,
     }
-    return switcher.get(argument, lambda: ui_worng_input() )
+    return switcher.get(argument, lambda: ui_wrong_input() )
 
 #closes the programm
 def ui_exit():
@@ -98,7 +100,7 @@ def ui_exit():
     return False
 
 #is called when a wrong input was detected
-def ui_worng_input():
+def ui_wrong_input():
     ui_clearer()
     print('ERROR:  Your input was wrong try again: \n\n')
     return True
@@ -106,6 +108,19 @@ def ui_worng_input():
 #clears the console
 def ui_clearer():
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
+#usergenerated todo
+def create_todo():
+    print('cratingtodo')
+    
+    new_todo={}
+    todo_name = input('Please give your ToDo a name: ')
+
+    if(ui_yes_nos_switcher(input('do you want to add a discription?'))):
+        print ('nicer dicer')
+    retrun true
+
+def benchmark_mode():
+    print('benchmarkmode')
 
 #def connection_reader():
 
