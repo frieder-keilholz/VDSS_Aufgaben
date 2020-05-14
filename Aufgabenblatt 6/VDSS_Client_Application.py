@@ -60,7 +60,7 @@ def ui_yes_no_switcher(argument):
         'Nein': False,
         'nein': False
     }
-    return switcher.get(argument, lambda: ui_wrong_input() )
+    return switcher.get(argument, ui_wrong_input() )
 
 #closes the programm
 def ui_exit():
@@ -71,7 +71,7 @@ def ui_exit():
 #is called when a wrong input was detected
 def ui_wrong_input():
     ui_clearer()
-    print('ERROR:  Your input was wrong try again: \n\n')
+    print('ERROR: Your input was wrong! Using default! \n\n')
     return True
 
 #clears the console
@@ -90,7 +90,7 @@ def search_simple():
     # print (mycol.find({"_id": searched_id}))
     # TODO The if statement should only be called if the search was positive
     if(result):
-        if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
+        if ui_yes_no_switcher(input("Do you want to change or add something to the ToDo item? (default: y)")):
             search_edit()
             return True
     ui_clearer()
@@ -130,7 +130,7 @@ def create_todo():
     day = int(input('Please enter a day: '))
     end_date = datetime.date(year, month, day)
 
-    number_of_assigned_users = int(input('How many users do you want to assign the task: '))
+    number_of_assigned_users = int(input("How many users do you want to assign the task: (default: 'y') "))
     assignd_users = []
     while number_of_assigned_users>0:
         assignd_users.append(input('Please enter the Name: '))
@@ -138,7 +138,8 @@ def create_todo():
 
     print(assignd_users)
     return True
-    
+
+#starts benchmarkmode   
 def benchmark_mode():
     
     print('BENCHMARK MODE ENABLED!!!!\n\n')
@@ -148,9 +149,7 @@ def benchmark_mode():
         i-=1
     return True
 
-
 #def connection_reader():
-
 
 print("VDSS clinet programm starting:")
 #myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
