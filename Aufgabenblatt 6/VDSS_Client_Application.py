@@ -12,6 +12,7 @@ ToDo List fot the client program
 
 """
 import pymongo
+import datetime
 from pymongo import MongoClient
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
@@ -40,6 +41,43 @@ def ui_main_menu_switcher(argument):
     }
     func = switcher.get(argument, lambda: ui_wrong_input() )
     return func()
+
+#converts many yes and no statements into True and False
+def ui_yes_no_switcher(argument):
+    switcher = {
+        'y': True,
+        'Y': True,
+        'yes': True,
+        'Yes': True,
+        'j': True,
+        'J': True,
+        'ja': True,
+        'Ja': True,
+        'n': False,
+        'no': False,
+        'N': False,
+        'No': False,
+        'Nein': False,
+        'nein': False
+    }
+    return switcher.get(argument, lambda: ui_wrong_input() )
+
+#closes the programm
+def ui_exit():
+    ui_clearer()
+    print('ui exit called')
+    return False
+
+#is called when a wrong input was detected
+def ui_wrong_input():
+    ui_clearer()
+    print('ERROR:  Your input was wrong try again: \n\n')
+    return True
+
+#clears the console
+def ui_clearer():
+
+    print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
 #searches after an _id
 def search_simple():
@@ -73,56 +111,32 @@ def search_complex():
 
 #[TO BE IMPLEMENTED] Lets the user edit the searched document 
 def search_edit():
+
     print("Edits are currently not imlemented yet")
-
-#converts many yes and no statements into True and False
-def ui_yes_no_switcher(argument):
-    switcher = {
-        'y': True,
-        'Y': True,
-        'yes': True,
-        'Yes': True,
-        'j': True,
-        'J': True,
-        'ja': True,
-        'Ja': True,
-        'n': False,
-        'no': False,
-        'N': False,
-        'No': False,
-        'Nein': False,
-        'nein': False,
-    }
-    return switcher.get(argument, lambda: ui_wrong_input() )
-
-#closes the programm
-def ui_exit():
-    ui_clearer()
-    print('ui exit called')
-    return False
-
-#is called when a wrong input was detected
-def ui_wrong_input():
-    ui_clearer()
-    print('ERROR:  Your input was wrong try again: \n\n')
-    return True
-
-#clears the console
-def ui_clearer():
-    print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-
 
 #usergenerated todo
 def create_todo():
     print('cratingtodo')
-    ToDoGen.createToDo({"ToDo":"ToDoTitel"})
+    #ToDoGen.createToDo({"ToDo":"ToDoTitel"})
     
     new_todo={}
     todo_name = input('Please give your ToDo a name: ')
 
-    if(ui_yes_nos_switcher(input('do you want to add a discription?'))):
+    if(ui_yes_no_switcher(input('do you want to add a discription?'))):
         discription = input("Please enter the discription: ")
-    untildate = input('Please enter the end date (yyyy-mm-dd hh:mm:ss) for the todo: ') #CONVERT INPUT TO DATE
+    print('Please enter the Deadline: ')
+    year = int(input('Please enter a year: '))
+    month = int(input('Please enter a month: '))
+    day = int(input('Please enter a day: '))
+    end_date = datetime.date(year, month, day)
+
+    number_of_assigned_users = int(input('How many users do you want to assign the task: '))
+    assignd_users = []
+    while number_of_assigned_users>0:
+        assignd_users.append(input('Please enter the Name: '))
+        number_of_assigned_users-=1
+
+    print(assignd_users)
     return True
     
 def benchmark_mode():
