@@ -120,23 +120,35 @@ def create_todo():
     #ToDoGen.createToDo({"ToDo":"ToDoTitel"})
     
     new_todo={}
+    #code for the name
     todo_name = input('Please give your ToDo a name: ')
-
+    #code for the discription
     if(ui_yes_no_switcher(input('do you want to add a discription?'))):
         discription = input("Please enter the discription: ")
+
+    #code for the deadline
     print('Please enter the Deadline: ')
     year = int(input('Please enter a year: '))
     month = int(input('Please enter a month: '))
     day = int(input('Please enter a day: '))
     end_date = datetime.date(year, month, day)
-
+    #code for assigned users
     number_of_assigned_users = int(input("How many users do you want to assign the task: (default: 'y') "))
     assignd_users = []
     while number_of_assigned_users>0:
         assignd_users.append(input('Please enter the Name: '))
         number_of_assigned_users-=1
-
-    print(assignd_users)
+    #code for subtasks
+    subtasks = []
+    if (ui_yes_no_switcher(input("Do you want to add subtasks?"))):
+        num_of_subtask = int(input("How many subtasks do you want to add?"))
+        while num_of_subtask>0:
+            subtasks.append(input("Please enter the subtask: "))
+    #code for language
+    todo_language = input("Please specify the language of the todo: ")
+    #code for notes
+    if (ui_yes_no_switcher(input("Do you want to add Notes? "))):
+        print("note adder pls")
     return True
 
 #starts benchmarkmode   
