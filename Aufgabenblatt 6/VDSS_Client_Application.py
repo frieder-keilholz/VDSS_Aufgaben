@@ -109,7 +109,7 @@ def search_complex():
     ui_clearer()
     return True
 
-#[TO BE IMPLEMENTED] Lets the user edit the searched document 
+#[TO BE IMPLEMENTED] Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
 def search_edit():
 
     print("Edits are currently not imlemented yet")
