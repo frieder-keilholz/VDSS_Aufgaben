@@ -6,7 +6,7 @@ ToDo List fot the client program
 --	Make documents searcheable by everything
 ---		Make documents searchable by 2 things at the same time (_id  and user)
 ---		Make documents serchable by x number of searchterms
---	Add stuff to the revcived document
+--	Add stuff to the received document
  >:c
 
 
@@ -135,20 +135,18 @@ def create_todo():
     #ToDoGen.createToDo({"ToDo":"ToDoTitel"})
 
     new_todo={}
+
     #code for the name
     todo_name = input('Please give your ToDo a name: ')
     #code for the discription
+    discription = "---"
     if(ui_yes_no_switcher(input('do you want to add a discription?'))):
         discription = input("Please enter the discription: ")
 
     #code for the deadline
-    print('Please enter the Deadline: ')
-    year = int(input('Please enter a year: '))
-    month = int(input('Please enter a month: '))
-    day = int(input('Please enter a day: '))
-    end_date = datetime.date(year, month, day)
+    end_date = ui_date_input()
     #code for assigned users
-    number_of_assigned_users = int(input("How many users do you want to assign the task: (default: 'y') "))
+    number_of_assigned_users = int(input("How many users do you want to assign the task: "))
     assignd_users = []
     while number_of_assigned_users>0:
         assignd_users.append(input('Please enter the Name: '))
@@ -158,13 +156,37 @@ def create_todo():
     if (ui_yes_no_switcher(input("Do you want to add subtasks?"))):
         num_of_subtask = int(input("How many subtasks do you want to add?"))
         while num_of_subtask>0:
-            subtasks.append(input("Please enter the subtask: "))
+            subtasks.append({"titel": input("Please enter the subtask: ")})
     #code for language
     todo_language = input("Please specify the language of the todo: ")
     #code for notes
+    notes= []
     if (ui_yes_no_switcher(input("Do you want to add Notes? "))):
+        note_count = int(input('Please enter how many notes you want to add: '))
+
+        while note_count>0:
+            note_name = input("Please enter who is responsible: ")
+            note_date = ui_date_input()
+            note_descr = input("Please enter a discription")
+            note_dictionary = { "who" : note_name, "when" : note_date, "what" : note_desc}
+            notes.append()
+            note_count=-1
+
         print("note adder pls")
+
+    new_todo = {"todo": todo_name,"text": description, "until": end_date, "user":assignd_users, "sub-task": subsaks, "language":todo_language, "notes":notes}
+    new_todo_json = ToDoGen.createToDo(new_todo)
+
+
     return True
+#methode for dateinput
+def ui_date_input():
+    print('Please enter the Deadline: ')
+    year = int(input('Please enter a year: '))
+    month = int(input('Please enter a month: '))
+    day = int(input('Please enter a day: '))
+    end_date = datetime.date(year, month, day)
+    return end_date
 
 #starts benchmarkmode
 def benchmark_mode():
