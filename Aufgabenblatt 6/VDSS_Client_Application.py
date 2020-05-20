@@ -125,11 +125,11 @@ def search_simple():
     print("You have chosen to search a ToDo by one category:")
     searched_category = ui_element_choice_switcher(input(ui_search_promt()))
     search_term= input("Please enter your searchterm: ")
-    input(searched_category, searchterm)
+
     start_time = time.process_time()
-    result = mycol.find({searched_category: searched_term})
+    result = mycol.find({searched_category: search_term})
     end_time = time.process_time()
-    csv_writer("search", searched_id, result, (end_time-start_time))
+    #csv_writer("search", searched_id, result, (end_time-start_time))
     print("Time for this request: {:5.3f}s".format(end_time-start_time))
     print(result)
     print(mycol.find_one())
@@ -190,6 +190,7 @@ def create_todo():
 
     #code for the deadline
     end_date = ui_date_input()
+    end_date =end_date.strftime("/%d/%m/%Y")
     #code for assigned users
     number_of_assigned_users = int(input("How many users do you want to assign the task: "))
     assignd_users = []
@@ -223,7 +224,7 @@ def create_todo():
     new_todo = {"todo": todo_name ,"text": discription , "until": end_date , "user": assignd_users , "sub_tasks": subtasks , "language":todo_language , "notes":notes}
     new_todo_json = ToDoGen.createToDo(new_todo)
     print(new_todo_json)
-
+    mycol.insert_one(new_todo)
     return True
 #methode for dateinput
 def ui_date_input():
@@ -232,6 +233,7 @@ def ui_date_input():
     month = int(input('Please enter a month: '))
     day = int(input('Please enter a day: '))
     end_date = datetime.date(year, month, day)
+    
     return end_date
 #starts benchmarkmode
 def benchmark_mode():
@@ -266,7 +268,7 @@ def csv_writer(type, value, result, duration):
 
 print("VDSS client programm starting:")
 #myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
-myclient = MongoClient("mongodb://192.168.2.162:10000/")
+myclient = MongoClient("mongodb://192.168.178.112:10000/")
 mydb = myclient["test"]
 mycol = mydb["test"] # should be todo
 
