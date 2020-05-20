@@ -1,6 +1,6 @@
 """
 ToDo List fot the client program
-	
+
 - Make simple Console UI
 - Make documents searchable by _id
 --	Make documents searcheable by everything
@@ -15,8 +15,11 @@ import pymongo
 import datetime
 import json
 from pymongo import MongoClient
+import configparser
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
+
+conf_file = configparser.RawConfigParser()
 
 #is the main method for the ui
 def ui_main ():
@@ -130,7 +133,7 @@ def search_edit(file):
 def create_todo():
     print('cratingtodo')
     #ToDoGen.createToDo({"ToDo":"ToDoTitel"})
-    
+
     new_todo={}
     #code for the name
     todo_name = input('Please give your ToDo a name: ')
@@ -163,9 +166,9 @@ def create_todo():
         print("note adder pls")
     return True
 
-#starts benchmarkmode   
+#starts benchmarkmode
 def benchmark_mode():
-    
+
     print('BENCHMARK MODE ENABLED!!!!\n\n')
     i=int(input('Please enter how many todos you want to generate: '))
     while(i>0):
@@ -173,9 +176,23 @@ def benchmark_mode():
         i-=1
     return True
 
-#def connection_reader():
+def connection_reader():
+    ip = ""
+    port = ""
+    conf_file.read('test2.txt')
+    sections = conf_file.sections()
+    print(conf_file.sections()[0])
+    #for section in sections:
+    #    print(section)
+    #    for value in conf_file[section]:
+    #        print(value)
+    ip = conf_file[conf_file.sections()[0]]["ip"]
+    port = conf_file[conf_file.sections()[0]]["port"]
+    print(ip + " " + port)
+    return ip, port
 
-print("VDSS clinet programm starting:")
+
+print("VDSS client programm starting:")
 #myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
 myclient = MongoClient("mongodb://192.168.2.162:10000/")
 mydb = myclient["test"]
