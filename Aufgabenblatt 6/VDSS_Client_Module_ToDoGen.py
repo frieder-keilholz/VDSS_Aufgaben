@@ -11,7 +11,7 @@ languages = ["Python", "C", "C++", "C#", "Java", "JavaScript", "Perl", "Go", "AB
 
 # by user input
 def createToDo(dict):
-    print("Create ToDo-JSON-Document by user-given values")
+    #print("Create ToDo-JSON-Document by user-given values")
     entry = {}
     entry["todo"] = dict["todo"]
     entry["text"] = dict["text"]
@@ -23,7 +23,7 @@ def createToDo(dict):
 
 # generate random ToDo
 def generateToDo():
-    print("Generate Random ToDo-JSON-Document")
+    #print("Generate Random ToDo-JSON-Document")
     entry = {}
     entry["todo"] = fake.sentence()
     entry["text"] = fake.text()
@@ -42,11 +42,11 @@ def generateToDo():
     entry["language"] = languages[random.randint(1,len(languages))-1]
 
     jsonDoc = json.dumps(entry,default=str,indent=4)
-    print(jsonDoc)
+    #print(jsonDoc)
     return jsonDoc
 
 start = time.time()
-for _ in range(1,100):
+for _ in range(1,1000):
     generateToDo()
 elapsed = time.time() - start
 print(elapsed)
