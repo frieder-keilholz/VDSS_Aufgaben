@@ -220,7 +220,7 @@ def create_todo():
 
         print("note adder pls")
 
-    new_todo = {"todo": todo_name ,"text": discription , "until": end_date , "user": assignd_users , "sub-task": subtasks , "language":todo_language , "notes":notes}
+    new_todo = {"todo": todo_name ,"text": discription , "until": end_date , "user": assignd_users , "sub_tasks": subtasks , "language":todo_language , "notes":notes}
     new_todo_json = ToDoGen.createToDo(new_todo)
     print(new_todo_json)
 
