@@ -5,6 +5,8 @@ import random
 import datetime
 import json
 
+import time
+
 languages = ["Python", "C", "C++", "C#", "Java", "JavaScript", "Perl", "Go", "ABAP", "SQL"]
 
 # by user input
@@ -37,10 +39,14 @@ def generateToDo():
         sub_tasks.append({"title":fake.sentence()})
     entry["sub_tasks"] = sub_tasks
 
-    entry["language"] = languages[random.randint(1,len(languages))]
+    entry["language"] = languages[random.randint(1,len(languages))-1]
 
     jsonDoc = json.dumps(entry,default=str,indent=4)
     print(jsonDoc)
     return jsonDoc
 
-generateToDo()
+start = time.time()
+for _ in range(1,100):
+    generateToDo()
+elapsed = time.time() - start
+print(elapsed)
