@@ -5,23 +5,27 @@ import random
 import datetime
 import json
 
+import time
+
 languages = ["Python", "C", "C++", "C#", "Java", "JavaScript", "Perl", "Go", "ABAP", "SQL"]
 
 # by user input
 def createToDo(dict):
-    print("Create ToDo-JSON-Document by user-given values")
+    #print("Create ToDo-JSON-Document by user-given values")
     entry = {}
     entry["todo"] = dict["todo"]
     entry["text"] = dict["text"]
     entry["until"] = datetime.datetime(dict["until"])
-    entry["todo"] = dict["todo"]
+    entry["user"] = dict["user"]
+    entry["sub_tasks"] = dict["sub_tasks"]
+    entry["language"] = dict["language"]
     jsonDoc = json.dumps(entry, default=str,indent=4)
     print(jsonDoc)
     return jsonDoc
 
 # generate random ToDo
 def generateToDo():
-    print("Generate Random ToDo-JSON-Document")
+    #print("Generate Random ToDo-JSON-Document")
     entry = {}
     entry["todo"] = fake.sentence()
     entry["text"] = fake.text()
@@ -37,10 +41,14 @@ def generateToDo():
         sub_tasks.append({"title":fake.sentence()})
     entry["sub_tasks"] = sub_tasks
 
-    entry["language"] = languages[random.randint(1,len(languages))]
+    entry["language"] = languages[random.randint(1,len(languages))-1]
 
     jsonDoc = json.dumps(entry,default=str,indent=4)
-    print(jsonDoc)
+    #print(jsonDoc)
     return jsonDoc
 
-generateToDo()
+start = time.time()
+for _ in range(1,1000):
+    generateToDo()
+elapsed = time.time() - start
+print(elapsed)
