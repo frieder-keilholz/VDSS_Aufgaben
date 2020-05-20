@@ -145,11 +145,22 @@ def search_simple():
 def search_complex():
     ui_clearer()
     print("You have chosen to search a ToDo by multple Arguments:")
-    search_id = input("_id:")
+    search_dictionary = {}
+    search_category = ui_element_choice_switcher(input(uiui_search_promt()))
+    search_dictionary[search_category] = input("Please enter your searchterm: ")
+    print("Do you want to add another searchterm?")
+    
+    add_search_term = ui_yes_no_switcher()
+    while (add_search_term):
+        search_category = ui_element_choice_switcher(input(uiui_search_promt()))
+        search_dictionary[search_category] = input("Please enter your searchterm: ")
+        print("Do you want to add another searchterm?")
+        add_search_term = ui_yes_no_switcher()
+    
     start_time = time.process_time()
-    # Put search here
+    result = mycol.find(search_dictionary)
     end_time = time.process_time()
-    # csv_writer("search", searched_id, result, (end_time-start_time))
+    csv_writer("multi_search", "NA", result, (end_time-start_time))
     print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     # TODO The if statement should only be called if the search was positive
     if(search_id):
