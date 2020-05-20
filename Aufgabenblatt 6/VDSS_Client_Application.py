@@ -37,6 +37,7 @@ conf_file = configparser.RawConfigParser()
 #is the main method for the ui
 def ui_main ():
     ui_clearer()
+    # nice asccii art
     print("   _    __    ____    _____   _____           ___             ____                     __                  _____")
     print("  | |  / /   / __ \  / ___/  / ___/          /   |  __  __   / __/   ____ _  ____ _   / /_   ___          / ___/")
     print("  | | / /   / / / /  \__ \   \__ \          / /| | / / / /  / /_    / __ `/ / __ `/  / __ \ / _ \        / __ \ ")
@@ -93,7 +94,7 @@ def ui_yes_no_tester():
 #user input poromt for the search category
 def ui_search_promt():
 
-    print("Please enter the corisponding number of the categroy you want to search with:\n\nEnter '1' to search by ID.\nEnter '2' to search by the title.\nEnter '3' to search by the discription. \nEnter '4' to search by the deadline. (dd-mm-yyyy)\nEnter '5' to search by assigned users.\nEnter '6' to search by language.\n\nYour category choice: ")      
+    print("Please enter the corisponding number of the categroy you want to search with:\n\nEnter '1' to search by ID.\nEnter '2' to search by the title.\nEnter '3' to search by the discription. \nEnter '4' to search by the deadline. (dd-mm-yyyy)\nEnter '5' to search by assigned users.\nEnter '6' to search by language.\n\nYour category choice: ")
 #closes the programm
 def ui_exit():
     ui_clearer()
@@ -119,7 +120,7 @@ def ui_element_choice_switcher(argument):
 def ui_clearer():
 
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-#searches after an _id
+#Lets the user select a category to search for and searches for the userinput in the database in that category
 def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by one category:")
@@ -145,11 +146,22 @@ def search_simple():
 def search_complex():
     ui_clearer()
     print("You have chosen to search a ToDo by multple Arguments:")
-    search_id = input("_id:")
+    search_dictionary = {}
+    search_category = ui_element_choice_switcher(input(ui_search_promt()))
+    search_dictionary[search_category] = input("Please enter your searchterm: ")
+    print("Do you want to add another searchterm?")
+
+    add_search_term = ui_yes_no_switcher(input())
+    while (add_search_term):
+        search_category = ui_element_choice_switcher(input(uiui_search_promt()))
+        search_dictionary[search_category] = input("Please enter your searchterm: ")
+        print("Do you want to add another searchterm?")
+        add_search_term = ui_yes_no_switcher()
+
     start_time = time.process_time()
-    # Put search here
+    result = mycol.find(search_dictionary)
     end_time = time.process_time()
-    # csv_writer("search", searched_id, result, (end_time-start_time))
+    csv_writer("multi_search", "NA", result, (end_time-start_time))
     print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     # TODO The if statement should only be called if the search was positive
     if(search_id):
@@ -244,10 +256,11 @@ def benchmark_mode():
         mycol.insert_one(ToDoGen.generateToDo())
         i-=1
     return True
+
 def connection_reader():
     ip = ""
     port = ""
-    conf_file.read('test2.txt')
+    conf_file.read('config.txt')
     sections = conf_file.sections()
     print(conf_file.sections()[0])
     #for section in sections:
