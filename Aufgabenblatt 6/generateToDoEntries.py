@@ -1,7 +1,7 @@
 __author__      = "Frieder Keilholz"
 __email__       = "frieder.keilholz@th-wildau.de"
 __status__      = "Prototype"
-__version__     = 2    
+__version__     = 2
 
 # # # # # # # # # # # # # # # # #
 # Faker Package vorrausgesetzt  #
@@ -57,10 +57,10 @@ def buildEntries(numOfeEtries):
 
             # set nodes
             entry["nodes"] = ["node-1", "node-3", "node-5"]
-            
+
             entriesPerUser.append(entry)
         entries.append(entriesPerUser)
-     
+
     return entries
 
 def saveJSONs(entries):
@@ -83,13 +83,13 @@ print("Save generated ToDos to JSON-files...")
 print(datetime.datetime.now() - now)
 saveJSONs(entries)
 
-""" 
+"""
 Timetesting on 9700k @5.1ghz
 times
 100k: 0:05:02.440824
 10k:  0:00:30.522318
 """
-""" 
+"""
 Timetesting on 3600X @UbuntuVM
 times
 100k: 0:05:07.994340
