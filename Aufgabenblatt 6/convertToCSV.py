@@ -11,6 +11,7 @@ def convert_text_to_json():
 
     for line in text_lines:
         line.strip()
+        print("ok")
         convert_json_to_csv(line)
 
     
@@ -18,15 +19,15 @@ def convert_text_to_json():
 
 def convert_json_to_csv(json_input):
      json_data = json.loads(json_input)
-
-     with open(output_path, mode="w") as output_file:
+     with open(output_path, mode="a") as output_file:
          output_writer = csv.writer(output_file, delimiter=";")
-
+         line = []
          line.clear()
-         for second_level_key in json_data["localhost:27017"][0]:
-             value = json_data["localhost:27017"][0][second_level_key]
-             line.appen(value)
-
+         for second_level_key in json_data["localhost:27017"]:
+             value = json_data["localhost:27017"][second_level_key]
+             line.append(value)
+         
+         print(line)
          output_writer.writerow(line)
 
 
