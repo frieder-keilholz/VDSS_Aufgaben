@@ -42,7 +42,7 @@ def ui_main ():
 
 #prints the ui Input promt
 def ui_input_prompt():
-    print("You have the following optins: \nInput: '1' to search for a todo by 'id'\nInput: '2' to search by multiple things\nInput: '3' to create a todo manualy \nInput: '4' to sart benchmarkmode \nInput: 'Exit' to leave")
+    print("You have the following optins: \nInput: '1' to search for a todo by one category\nInput: '2' to search by multiple categorys\nInput: '3' to create a todo manualy \nInput: '4' to sart benchmarkmode \nInput: 'Exit' to leave")
     first_usr_input = input("\n What do you want to do: \t")
     return first_usr_input
 
@@ -79,20 +79,8 @@ def ui_yes_no_switcher(argument):
     return switcher.get(argument, ui_wrong_input() )
 #user input poromt for the search category
 def ui_search_promt():
-    print('yeetl')      
 
-
-#lets the user decide what elements gets searched
-def ui_element_choice_switcher(argument):
-    switcher = {
-       '1': '_id',
-       '2': 'todo',
-       '3': 'text',
-       '4': 'until',
-       '5': 'users',
-       '6': 'language'
-       }
-    return switcher.get(argument, ui_wrong_input() )
+    print("Please enter the corisponding number of the categroy you want to search with:\n\nEnter '1' to search by ID.\nEnter '2' to search by the title.\nEnter '3' to search by the discription. \nEnter '4' to search by the deadline. (dd-mm-yyyy)\nEnter '5' to search by assigned users.\nEnter '6' to search by language.\n\nYour category choice: ")      
 
 #closes the programm
 def ui_exit():
@@ -105,7 +93,17 @@ def ui_wrong_input():
     ui_clearer()
     print('ERROR: Your input was wrong! Using default! \n\n')
     return True
-
+#lets the user decide what elements gets searched
+def ui_element_choice_switcher(argument):
+    switcher = {
+       '1': '_id',
+       '2': 'todo',
+       '3': 'text',
+       '4': 'until',
+       '5': 'users',
+       '6': 'language'
+       }
+    return switcher.get(argument, ui_wrong_input() )
 #clears the console
 def ui_clearer():
 
@@ -114,8 +112,8 @@ def ui_clearer():
 #searches after an _id
 def search_simple():
     ui_clearer()
-    print("You have chosen to search a ToDo by its '_id':")
-    searched_id = input("_id:")
+    print("You have chosen to search a ToDo by one category:")
+    searched_category = ui_element_choice_switcher(input(ui_search_promt())
     start_time = time.process_time()
     result = mycol.find({"_id": searched_id})
     end_time = time.process_time()
