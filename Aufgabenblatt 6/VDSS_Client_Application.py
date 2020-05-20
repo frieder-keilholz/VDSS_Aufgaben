@@ -153,7 +153,7 @@ def search_complex():
     search_dictionary[search_category] = input("Please enter your searchterm: ")
     print("Do you want to add another searchterm?")
 
-    add_search_term = ui_yes_no_switcher()
+    add_search_term = ui_yes_no_switcher(input())
     while (add_search_term):
         search_category = ui_element_choice_switcher(input(uiui_search_promt()))
         search_dictionary[search_category] = input("Please enter your searchterm: ")
