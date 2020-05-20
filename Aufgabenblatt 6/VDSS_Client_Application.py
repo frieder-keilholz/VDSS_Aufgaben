@@ -1,13 +1,4 @@
 """
-ToDo List fot the client program
-	
-- Make simple Console UI
-- Make documents searchable by _id
---	Make documents searcheable by everything
----		Make documents searchable by 2 things at the same time (_id  and user)
----		Make documents serchable by x number of searchterms
---	Add stuff to the revcived document
- >:c
 
 
 """
@@ -62,6 +53,22 @@ def ui_yes_no_switcher(argument):
         'nein': False
     }
     return switcher.get(argument, ui_wrong_input() )
+#user input poromt for the search category
+def ui_search_promt():
+    print('yeetl')      
+
+
+#lets the user decide what elements gets searched
+def ui_element_choice_switcher(argument):
+    switcher = {
+       '1': '_id',
+       '2': 'todo',
+       '3': 'text',
+       '4': 'until',
+       '5': 'users',
+       '6': 'language'
+       }
+    return switcher.get(argument, ui_wrong_input() )
 
 #closes the programm
 def ui_exit():
@@ -110,7 +117,7 @@ def search_complex():
     ui_clearer()
     return True
 
-#[TO BE IMPLEMENTED] Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
+# Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
 def search_edit(file):
     parsed = json.loads(file)
     json.dumps(parsed, indent=4, sort_keys=True)
