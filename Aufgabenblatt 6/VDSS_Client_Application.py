@@ -37,6 +37,7 @@ conf_file = configparser.RawConfigParser()
 #is the main method for the ui
 def ui_main ():
     ui_clearer()
+    # nice asccii art
     print("   _    __    ____    _____   _____           ___             ____                     __                  _____")
     print("  | |  / /   / __ \  / ___/  / ___/          /   |  __  __   / __/   ____ _  ____ _   / /_   ___          / ___/")
     print("  | | / /   / / / /  \__ \   \__ \          / /| | / / / /  / /_    / __ `/ / __ `/  / __ \ / _ \        / __ \ ")
@@ -119,14 +120,16 @@ def ui_element_choice_switcher(argument):
 def ui_clearer():
 
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-#searches after an _id
+#Lets the user select a category to search for and searches for the userinput in the database in that category
 def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by one category:")
     searched_category = ui_element_choice_switcher(input(ui_search_promt()))
     search_term= input("Please enter your searchterm: ")
     input(searched_category, searchterm)
+    #Times the operation for logging
     start_time = time.process_time()
+    #Searches the database
     result = mycol.find({searched_category: searched_term})
     end_time = time.process_time()
     csv_writer("search", searched_id, result, (end_time-start_time))
