@@ -7,11 +7,12 @@ This file implements the ToDo List for the client program. Its purpose is to:
     -- make documents searcheable by everything
     --- make documents searchable by 2 things at the same time (_id  and user)
     ---	make documents searchable by x number of searchterms
-    -- add stuff to the received document
+    -- make the received document editable
 """
 
 import pymongo
 import datetime
+import time
 import json
 import configparser
 from pymongo import MongoClient
@@ -24,11 +25,20 @@ __version__ = '0.0.26'
 __email__ = 'maha2541@th-wildau.de, kojo4103@th-wildau.de, jure5622@th-wildau.de'
 __status__ = 'Production'
 
+start_time = 0;
+end_time = 0;
 conf_file = configparser.RawConfigParser()
 
 #is the main method for the ui
 def ui_main ():
     ui_clearer()
+    print("   _    __    ____    _____   _____           ___             ____                     __                  _____")
+    print("  | |  / /   / __ \  / ___/  / ___/          /   |  __  __   / __/   ____ _  ____ _   / /_   ___          / ___/")
+    print("  | | / /   / / / /  \__ \   \__ \          / /| | / / / /  / /_    / __ `/ / __ `/  / __ \ / _ \        / __ \ ")
+    print("  | |/ /   / /_/ /  ___/ /  ___/ /         / ___ |/ /_/ /  / __/   / /_/ / / /_/ /  / /_/ //  __/       / /_/ / ")
+    print("  |___/   /_____/  /____/  /____/         /_/  |_|\__,_/  /_/      \__, /  \__,_/  /_.___/ \___/        \____/  ")
+    print("                                                                  /____/                                        ")
+    print("")
     print("Hello this is our VDSS client programm user interface \n\n")
     while  ui_main_menu_switcher(ui_input_prompt()):
         print ("Input Wörkt")
@@ -70,6 +80,22 @@ def ui_yes_no_switcher(argument):
         'nein': False
     }
     return switcher.get(argument, ui_wrong_input() )
+#user input poromt for the search category
+def ui_search_promt():
+    print('yeetl')
+
+
+#lets the user decide what elements gets searched
+def ui_element_choice_switcher(argument):
+    switcher = {
+       '1': '_id',
+       '2': 'todo',
+       '3': 'text',
+       '4': 'until',
+       '5': 'users',
+       '6': 'language'
+       }
+    return switcher.get(argument, ui_wrong_input() )
 
 #closes the programm
 def ui_exit():
@@ -93,7 +119,10 @@ def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by its '_id':")
     searched_id = input("_id:")
+    start_time = time.process_time()
     result = mycol.find({"_id": searched_id})
+    end_time = time.process_time()
+    print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     print(result)
     print(mycol.find_one())
     # print (mycol.find({"_id": searched_id}))
@@ -110,6 +139,10 @@ def search_complex():
     ui_clearer()
     print("You have chosen to search a ToDo by multple Arguments:")
     search_id = input("_id:")
+    start_time = time.process_time()
+    # Put search here
+    end_time = time.process_time()
+    print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     # TODO The if statement should only be called if the search was positive
     if(search_id):
         if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
@@ -118,7 +151,7 @@ def search_complex():
     ui_clearer()
     return True
 
-#[TO BE IMPLEMENTED] Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
+# Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
 def search_edit(file):
     parsed = json.loads(file)
     json.dumps(parsed, indent=4, sort_keys=True)
