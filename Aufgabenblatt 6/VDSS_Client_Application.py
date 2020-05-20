@@ -11,6 +11,7 @@ ToDo List fot the client program
 
 
 """
+
 import pymongo
 import datetime
 import time
@@ -28,6 +29,13 @@ conf_file = configparser.RawConfigParser()
 #is the main method for the ui
 def ui_main ():
     ui_clearer()
+    print("   _    __    ____    _____   _____           ___             ____                     __                  _____")
+    print("  | |  / /   / __ \  / ___/  / ___/          /   |  __  __   / __/   ____ _  ____ _   / /_   ___          / ___/")
+    print("  | | / /   / / / /  \__ \   \__ \          / /| | / / / /  / /_    / __ `/ / __ `/  / __ \ / _ \        / __ \ ")
+    print("  | |/ /   / /_/ /  ___/ /  ___/ /         / ___ |/ /_/ /  / __/   / /_/ / / /_/ /  / /_/ //  __/       / /_/ / ")
+    print("  |___/   /_____/  /____/  /____/         /_/  |_|\__,_/  /_/      \__, /  \__,_/  /_.___/ \___/        \____/  ")
+    print("                                                                  /____/                                        ")
+    print("")
     print("Hello this is our VDSS client programm user interface \n\n")
     while  ui_main_menu_switcher(ui_input_prompt()):
         print ("Input Wörkt")
