@@ -13,10 +13,14 @@ ToDo List fot the client program
 """
 import pymongo
 import datetime
+import time
 import json
 from pymongo import MongoClient
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
+
+start_time = 0;
+end_time = 0;
 
 #is the main method for the ui
 def ui_main ():
@@ -85,7 +89,10 @@ def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by its '_id':")
     searched_id = input("_id:")
+    start_time = time.process_time()
     result = mycol.find({"_id": searched_id})
+    end_time = time.process_time()
+    print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     print(result)
     print(mycol.find_one())
     # print (mycol.find({"_id": searched_id}))
@@ -102,6 +109,10 @@ def search_complex():
     ui_clearer()
     print("You have chosen to search a ToDo by multple Arguments:")
     search_id = input("_id:")
+    start_time = time.process_time()
+    # Put search here
+    end_time = time.process_time()
+    print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     # TODO The if statement should only be called if the search was positive
     if(search_id):
         if ui_yes_no_switcher(input("do you want to change or add something to the ToDo item?")):
