@@ -1,12 +1,12 @@
 """
 ToDo List fot the client program
-	
+
 - Make simple Console UI
 - Make documents searchable by _id
 --	Make documents searcheable by everything
 ---		Make documents searchable by 2 things at the same time (_id  and user)
 ---		Make documents serchable by x number of searchterms
---	Add stuff to the revcived document
+--	Add stuff to the received document
  >:c
 
 
@@ -16,11 +16,14 @@ import datetime
 import time
 import json
 from pymongo import MongoClient
+import configparser
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
 
 start_time = 0;
 end_time = 0;
+
+conf_file = configparser.RawConfigParser()
 
 #is the main method for the ui
 def ui_main ():
@@ -141,7 +144,9 @@ def search_edit(file):
 def create_todo():
     print('cratingtodo')
     #ToDoGen.createToDo({"ToDo":"ToDoTitel"})
-    
+
+    new_todo={}
+
     #code for the name
     todo_name = input('Please give your ToDo a name: ')
     #code for the discription
@@ -169,7 +174,7 @@ def create_todo():
     notes= []
     if (ui_yes_no_switcher(input("Do you want to add Notes? "))):
         note_count = int(input('Please enter how many notes you want to add: '))
-        
+
         while note_count>0:
             note_name = input("Please enter who is responsible: ")
             note_date = ui_date_input()
@@ -194,9 +199,9 @@ def ui_date_input():
     end_date = datetime.date(year, month, day)
     return end_date
 
-#starts benchmarkmode   
+#starts benchmarkmode
 def benchmark_mode():
-    
+
     print('BENCHMARK MODE ENABLED!!!!\n\n')
     i=int(input('Please enter how many todos you want to generate: '))
     while(i>0):
@@ -204,9 +209,23 @@ def benchmark_mode():
         i-=1
     return True
 
-#def connection_reader():
+def connection_reader():
+    ip = ""
+    port = ""
+    conf_file.read('test2.txt')
+    sections = conf_file.sections()
+    print(conf_file.sections()[0])
+    #for section in sections:
+    #    print(section)
+    #    for value in conf_file[section]:
+    #        print(value)
+    ip = conf_file[conf_file.sections()[0]]["ip"]
+    port = conf_file[conf_file.sections()[0]]["port"]
+    print(ip + " " + port)
+    return ip, port
 
-print("VDSS clinet programm starting:")
+
+print("VDSS client programm starting:")
 #myclient = MongoClient("mongodb://192.168.2.170:9001,192.168.2.170:9002,192.168.2.170:9003/?replicaSet=rs2")
 myclient = MongoClient("mongodb://192.168.2.162:10000/")
 mydb = myclient["test"]
