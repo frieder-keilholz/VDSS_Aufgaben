@@ -121,7 +121,7 @@ def ui_clearer():
 def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by one category:")
-    searched_category = ui_element_choice_switcher(input(ui_search_promt())
+    searched_category = ui_element_choice_switcher(input(ui_search_promt()))
     start_time = time.process_time()
     result = mycol.find({"_id": searched_id})
     end_time = time.process_time()
