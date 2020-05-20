@@ -149,7 +149,7 @@ def search_complex():
     ui_clearer()
     print("You have chosen to search a ToDo by multple Arguments:")
     search_dictionary = {}
-    search_category = ui_element_choice_switcher(input(uiui_search_promt()))
+    search_category = ui_element_choice_switcher(input(ui_search_promt()))
     search_dictionary[search_category] = input("Please enter your searchterm: ")
     print("Do you want to add another searchterm?")
 
