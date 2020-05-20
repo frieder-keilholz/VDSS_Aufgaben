@@ -126,7 +126,7 @@ def search_simple():
     print("You have chosen to search a ToDo by one category:")
     searched_category = ui_element_choice_switcher(input(ui_search_promt()))
     search_term= input("Please enter your searchterm: ")
-    input(searched_category, searchterm)
+    input(searched_category, search_term)
     #Times the operation for logging
     start_time = time.process_time()
     #Searches the database
