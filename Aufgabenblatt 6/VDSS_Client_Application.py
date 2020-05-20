@@ -1,28 +1,36 @@
+#!/usr/bin/env python
+
 """
-ToDo List fot the client program
-
-- Make simple Console UI
-- Make documents searchable by _id
---	Make documents searcheable by everything
----		Make documents searchable by 2 things at the same time (_id  and user)
----		Make documents serchable by x number of searchterms
---	Add stuff to the received document
- >:c
-
-
+This file implements the ToDo List for the client program. Its purpose is to:
+    - create a simple console UI
+    - make documents searchable by _id
+    -- make documents searcheable by everything
+    --- make documents searchable by 2 things at the same time (_id  and user)
+    ---	make documents searchable by x number of searchterms
+    -- make the received document editable
 """
 
 import pymongo
 import datetime
 import time
 import json
+import configparser
 from pymongo import MongoClient
 import configparser
+import csv
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
 
+__author__ = 'Maximilian Hartmann, Konstantin Joerss, Julia Reinke'
+__credits__ = ['Maximilian Hartmann', 'Konstantin Joerss', 'Julia Reinke']
+__version__ = '0.0.26'
+__email__ = 'maha2541@th-wildau.de, kojo4103@th-wildau.de, jure5622@th-wildau.de'
+__status__ = 'Production'
+
 start_time = 0;
 end_time = 0;
+
+csv_path = "logfile.csv"
 
 conf_file = configparser.RawConfigParser()
 
@@ -117,7 +125,8 @@ def search_simple():
     start_time = time.process_time()
     result = mycol.find({"_id": searched_id})
     end_time = time.process_time()
-    print("Time for this request: {:5.3f}s".format(endend_time-start_time))
+    csv_writer("search", searched_id, result, (end_time-start_time))
+    print("Time for this request: {:5.3f}s".format(end_time-start_time))
     print(result)
     print(mycol.find_one())
     # print (mycol.find({"_id": searched_id}))
@@ -137,6 +146,7 @@ def search_complex():
     start_time = time.process_time()
     # Put search here
     end_time = time.process_time()
+    # csv_writer("search", searched_id, result, (end_time-start_time))
     print("Time for this request: {:5.3f}s".format(endend_time-start_time))
     # TODO The if statement should only be called if the search was positive
     if(search_id):
@@ -153,9 +163,10 @@ def search_edit(file):
     for key in parsed:
         value = parsed[key]
         print("Do you want to change the value of ({}) = ({})?".format(key, value))
-        if(YesNoSwitcher()):
+        if(ui_yes_no_switcher()):
             print("Please insert the new Value:")
             item[key] == input()
+            csv_writer("edit", key, parsed[key], (time.process_time-time.process_time))
     print("Have you done all changes?")
     if(not ui_yes_no_switcher()):
         documentChanger(json.dumps(parsed))
@@ -245,6 +256,12 @@ def connection_reader():
     port = conf_file[conf_file.sections()[0]]["port"]
     print(ip + " " + port)
     return ip, port
+
+def csv_writer(type, value, result, duration):
+    with open(csv_path, mode='w') as log_file:
+        log_writer = csv.writer(log_file, delimiter=';', quoting=csv.QUOTE_MINIMAL)
+
+        log_writer.writerow([time.process_time, type, value, result, duration])
 
 
 print("VDSS client programm starting:")
