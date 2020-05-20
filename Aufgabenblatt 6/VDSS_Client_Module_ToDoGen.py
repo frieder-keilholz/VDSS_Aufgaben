@@ -16,7 +16,9 @@ def createToDo(dict):
     entry["todo"] = dict["todo"]
     entry["text"] = dict["text"]
     entry["until"] = datetime.datetime(dict["until"])
-    entry["todo"] = dict["todo"]
+    entry["user"] = dict["user"]
+    entry["sub_tasks"] = dict["sub_tasks"]
+    entry["language"] = dict["language"]
     jsonDoc = json.dumps(entry, default=str,indent=4)
     print(jsonDoc)
     return jsonDoc
