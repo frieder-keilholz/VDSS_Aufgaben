@@ -53,7 +53,6 @@ def ui_input_prompt():
     print("You have the following optins: \nInput: '1' to search for a todo by one category\nInput: '2' to search by multiple categorys\nInput: '3' to create a todo manualy \nInput: '4' to sart benchmarkmode \nInput: 'Exit' to leave")
     first_usr_input = input("\n What do you want to do: \t")
     return first_usr_input
-
 #decides what to do based on the user input
 def ui_main_menu_switcher(argument):
     switcher = {
@@ -61,11 +60,11 @@ def ui_main_menu_switcher(argument):
         '2': search_complex,
         '3': create_todo,
         '4': benchmark_mode,
+        '5': ui_yes_no_tester,
         'Exit': ui_exit
     }
     func = switcher.get(argument, lambda: ui_wrong_input() )
     return func()
-
 #converts many yes and no statements into True and False
 def ui_yes_no_switcher(argument):
     switcher = {
@@ -84,18 +83,22 @@ def ui_yes_no_switcher(argument):
         'Nein': False,
         'nein': False
     }
-    return switcher.get(argument, ui_wrong_input() )
+    return switcher.get(argument, lambda: ui_wrong_input() )
+def ui_yes_no_tester():
+    if (ui_yes_no_switcher(input("Yes no tester"))):
+        print("got yes")
+    else:
+        print('got no')
+
 #user input poromt for the search category
 def ui_search_promt():
 
     print("Please enter the corisponding number of the categroy you want to search with:\n\nEnter '1' to search by ID.\nEnter '2' to search by the title.\nEnter '3' to search by the discription. \nEnter '4' to search by the deadline. (dd-mm-yyyy)\nEnter '5' to search by assigned users.\nEnter '6' to search by language.\n\nYour category choice: ")      
-
 #closes the programm
 def ui_exit():
     ui_clearer()
     print('ui exit called')
     return False
-
 #is called when a wrong input was detected
 def ui_wrong_input():
     ui_clearer()
@@ -116,14 +119,15 @@ def ui_element_choice_switcher(argument):
 def ui_clearer():
 
     print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
-
 #searches after an _id
 def search_simple():
     ui_clearer()
     print("You have chosen to search a ToDo by one category:")
     searched_category = ui_element_choice_switcher(input(ui_search_promt()))
+    search_term= input("Please enter your searchterm: ")
+    input(searched_category, searchterm)
     start_time = time.process_time()
-    result = mycol.find({"_id": searched_id})
+    result = mycol.find({searched_category: searched_term})
     end_time = time.process_time()
     csv_writer("search", searched_id, result, (end_time-start_time))
     print("Time for this request: {:5.3f}s".format(end_time-start_time))
@@ -137,7 +141,6 @@ def search_simple():
             return True
     ui_clearer()
     return True
-
 #[TO BE IMPLEMENTED] searches with mutiple parameters
 def search_complex():
     ui_clearer()
@@ -155,7 +158,6 @@ def search_complex():
             return True
     ui_clearer()
     return True
-
 # Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
 def search_edit(file):
     parsed = json.loads(file)
@@ -172,7 +174,6 @@ def search_edit(file):
         documentChanger(json.dumps(parsed))
     else:
         return json.dumps(parsed)
-
 #usergenerated todo
 def create_todo():
     print('cratingtodo')
@@ -201,6 +202,7 @@ def create_todo():
         num_of_subtask = int(input("How many subtasks do you want to add?"))
         while num_of_subtask>0:
             subtasks.append({"titel": input("Please enter the subtask: ")})
+            num_of_subtask-=1
     #code for language
     todo_language = input("Please specify the language of the todo: ")
     #code for notes
@@ -212,15 +214,15 @@ def create_todo():
             note_name = input("Please enter who is responsible: ")
             note_date = ui_date_input()
             note_descr = input("Please enter a discription")
-            note_dictionary = { "who" : note_name, "when" : note_date, "what" : note_desc}
-            notes.append()
+            note_dictionary = { "who" : note_name, "when" : note_date, "what" : note_descr}
+            notes.append(note_dictionary)
             note_count=-1
 
         print("note adder pls")
 
-    new_todo = {"todo": todo_name,"text": description, "until": end_date, "user":assignd_users, "sub-task": subsaks, "language":todo_language, "notes":notes}
+    new_todo = {"todo": todo_name ,"text": discription , "until": end_date , "user": assignd_users , "sub_tasks": subtasks , "language":todo_language , "notes":notes}
     new_todo_json = ToDoGen.createToDo(new_todo)
-
+    print(new_todo_json)
 
     return True
 #methode for dateinput
@@ -231,7 +233,6 @@ def ui_date_input():
     day = int(input('Please enter a day: '))
     end_date = datetime.date(year, month, day)
     return end_date
-
 #starts benchmarkmode
 def benchmark_mode():
 
@@ -241,7 +242,6 @@ def benchmark_mode():
         mycol.insert_one(ToDoGen.generateToDo())
         i-=1
     return True
-
 def connection_reader():
     ip = ""
     port = ""
