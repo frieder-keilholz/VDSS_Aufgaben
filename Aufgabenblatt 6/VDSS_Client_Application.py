@@ -1,23 +1,28 @@
-"""
-ToDo List fot the client program
-
-- Make simple Console UI
-- Make documents searchable by _id
---	Make documents searcheable by everything
----		Make documents searchable by 2 things at the same time (_id  and user)
----		Make documents serchable by x number of searchterms
---	Add stuff to the received document
- >:c
-
+#!/usr/bin/env python
 
 """
+This file implements the ToDo List for the client program. Its purpose is to:
+    - create a simple console UI
+    - make documents searchable by _id
+    -- make documents searcheable by everything
+    --- make documents searchable by 2 things at the same time (_id  and user)
+    ---	make documents searchable by x number of searchterms
+    -- add stuff to the received document
+"""
+
 import pymongo
 import datetime
 import json
-from pymongo import MongoClient
 import configparser
+from pymongo import MongoClient
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
+
+__author__ = 'Maximilian Hartmann, Konstantin Joerss, Julia Reinke'
+__credits__ = ['Maximilian Hartmann', 'Konstantin Joerss', 'Julia Reinke']
+__version__ = '0.0.26'
+__email__ = 'maha2541@th-wildau.de, kojo4103@th-wildau.de, jure5622@th-wildau.de'
+__status__ = 'Production'
 
 conf_file = configparser.RawConfigParser()
 
