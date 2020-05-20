@@ -1,26 +1,31 @@
+#!/usr/bin/env python
+
 """
-ToDo List fot the client program
-
-- Make simple Console UI
-- Make documents searchable by _id
---	Make documents searcheable by everything
----		Make documents searchable by 2 things at the same time (_id  and user)
----		Make documents serchable by x number of searchterms
---	Add stuff to the received document
- >:c
-
-
+This file implements the ToDo List for the client program. Its purpose is to:
+    - create a simple console UI
+    - make documents searchable by _id
+    -- make documents searcheable by everything
+    --- make documents searchable by 2 things at the same time (_id  and user)
+    ---	make documents searchable by x number of searchterms
+    -- make the received document editable
 """
 
 import pymongo
 import datetime
 import time
 import json
+import configparser
 from pymongo import MongoClient
 import configparser
 import csv
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
+
+__author__ = 'Maximilian Hartmann, Konstantin Joerss, Julia Reinke'
+__credits__ = ['Maximilian Hartmann', 'Konstantin Joerss', 'Julia Reinke']
+__version__ = '0.0.26'
+__email__ = 'maha2541@th-wildau.de, kojo4103@th-wildau.de, jure5622@th-wildau.de'
+__status__ = 'Production'
 
 start_time = 0;
 end_time = 0;
@@ -80,6 +85,22 @@ def ui_yes_no_switcher(argument):
         'nein': False
     }
     return switcher.get(argument, ui_wrong_input() )
+#user input poromt for the search category
+def ui_search_promt():
+    print('yeetl')
+
+
+#lets the user decide what elements gets searched
+def ui_element_choice_switcher(argument):
+    switcher = {
+       '1': '_id',
+       '2': 'todo',
+       '3': 'text',
+       '4': 'until',
+       '5': 'users',
+       '6': 'language'
+       }
+    return switcher.get(argument, ui_wrong_input() )
 
 #closes the programm
 def ui_exit():
@@ -137,7 +158,7 @@ def search_complex():
     ui_clearer()
     return True
 
-#[TO BE IMPLEMENTED] Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
+# Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
 def search_edit(file):
     parsed = json.loads(file)
     json.dumps(parsed, indent=4, sort_keys=True)

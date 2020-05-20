@@ -1,11 +1,23 @@
-from faker import Faker
-fake = Faker()
+#!/usr/bin/env python
 
+"""
+This file implements the module to generate new ToDo entries.
+It generates test data as JSON files and turns dicts in usable documents.
+"""
+
+__author__ = 'Frieder Keilholz'
+__credits__ = ['Frieder Keilholz']
+__version__ = '0.0.8'
+__email__ = 'frke4357@th-wildau'
+__status__ = 'Finished'
+
+import time
 import random
 import datetime
 import json
 
-import time
+from faker import Faker
+fake = Faker()
 
 languages = ["Python", "C", "C++", "C#", "Java", "JavaScript", "Perl", "Go", "ABAP", "SQL"]
 
@@ -30,12 +42,12 @@ def generateToDo():
     entry["todo"] = fake.sentence()
     entry["text"] = fake.text()
     entry["until"] = fake.future_datetime(end_date='+10y')
-    
+
     users = []
     for _ in range(random.randint(1,5)):
             users.append(fake.name())
     entry["user"] = users
-    
+
     sub_tasks = []
     for _ in range(random.randint(0,10)):
         sub_tasks.append({"title":fake.sentence()})
