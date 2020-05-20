@@ -13,6 +13,7 @@ ToDo List fot the client program
 """
 import pymongo
 import datetime
+import json
 from pymongo import MongoClient
 
 import VDSS_Client_Module_ToDoGen as ToDoGen
@@ -91,7 +92,7 @@ def search_simple():
     # TODO The if statement should only be called if the search was positive
     if(result):
         if ui_yes_no_switcher(input("Do you want to change or add something to the ToDo item? (default: y)")):
-            search_edit()
+            search_edit(result)
             return True
     ui_clearer()
     return True
@@ -110,9 +111,20 @@ def search_complex():
     return True
 
 #[TO BE IMPLEMENTED] Lets the user edit the searched document _____________________________________________________________________________________________________________________________________________________________________________
-def search_edit():
-
-    print("Edits are currently not imlemented yet")
+def search_edit(file):
+    parsed = json.loads(file)
+    json.dumps(parsed, indent=4, sort_keys=True)
+    for key in parsed:
+        value = parsed[key]
+        print("Do you want to change the value of ({}) = ({})?".format(key, value))
+        if(YesNoSwitcher()):
+            print("Please insert the new Value:")
+            item[key] == input()
+    print("Have you done all changes?")
+    if(not ui_yes_no_switcher()):
+        documentChanger(json.dumps(parsed))
+    else:
+        return json.dumps(parsed)
 
 #usergenerated todo
 def create_todo():
