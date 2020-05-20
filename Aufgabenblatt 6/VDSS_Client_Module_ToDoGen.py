@@ -27,7 +27,7 @@ def createToDo(dict):
     entry = {}
     entry["todo"] = dict["todo"]
     entry["text"] = dict["text"]
-    entry["until"] = datetime.datetime(dict["until"])
+    entry["until"] = dict["until"]
     entry["user"] = dict["user"]
     entry["sub_tasks"] = dict["sub_tasks"]
     entry["language"] = dict["language"]
